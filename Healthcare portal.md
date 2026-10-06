@@ -1,76 +1,49 @@
-## SYSTEM DIAGRAM
 ```mermaid
-graph TD
+graph TB
+    subgraph PatientCareContext["Patient Care Context"]
+        Patient["Patient"]
+        Doctor["Doctor"]
+        Appointment["Appointment"]
+        MedicalRecord["Medical Record"]
+        Patient -->|creates| Appointment
+        Doctor -->|manages| Appointment
+        Patient -->|has| MedicalRecord
+        Doctor -->|updates| MedicalRecord
+    end
 
-Practical Lab: Healthcare Portal Modernization
+    subgraph BillingInsuranceContext["Billing & Insurance Context"]
+        Bill["Bill"]
+        Payment["Payment"]
+        InsuranceClaim["Insurance Claim"]
+        InsuranceProvider["Insurance Provider"]
+        Bill -->|receives| Payment
+        InsuranceClaim -->|submitted to| InsuranceProvider
+        Bill -->|generates| InsuranceClaim
+    end
 
+    subgraph DiagnosticsContext["Diagnostics Context"]
+        LabTest["Lab Test"]
+        TestRequest["Test Request"]
+        LabResult["Lab Result"]
+        Laboratory["Laboratory"]
+        TestRequest -->|creates| LabTest
+        LabTest -->|performed by| Laboratory
+        LabTest -->|generates| LabResult
+    end
 
-1. Domain Context Mapping
+    Patient -->|requests| TestRequest
+    Doctor -->|orders| TestRequest
+    Patient -->|receives| Bill
+    LabResult -->|sent to| Patient
+    LabResult -->|sent to| Doctor
 
-The legacy healthcare portal can be divided into three bounded contexts:
+    classDef patientCareStyle stroke:#818cf8,fill:#eef2ff
+    classDef billingStyle stroke:#fb923c,fill:#fff7ed
+    classDef diagnosticsStyle stroke:#4ade80,fill:#f0fdf4
+    classDef contextStyle stroke:#a78bfa,fill:#f5f3ff
 
-Bounded Context
-
-Primary Entities
-
-Main Responsibility
-
-Patient Care Context
-
-Patient, Appointment, Doctor, Medical Record
-
-Manages patient information, appointments, and patient care
-
-Billing & Insurance Context
-
-Bill, Payment, Insurance Claim, Insurance Provider
-
-Manages patient bills, payments, and insurance claims
-
-Diagnostics Context
-
-Lab Test, Lab Result, Test Request, Laboratory
-
-Manages laboratory tests and patient test results
-
-
-A. Patient Management
-
-Bounded Context: Patient Care Context
-
-Primary entities:
-
-* Patient
-* Doctor
-* Appointment
-* Medical Record
-
-Purpose: To manage patient information, appointments, and healthcare services.
-
-B. Billing & Insurance Claims
-
-Bounded Context: Billing & Insurance Context
-
-Primary entities:
-
-* Bill
-* Payment
-* Insurance Claim
-* Insurance Provider
-
-Purpose: To manage billing, payments, and insurance claims.
-
-C. Lab Test Diagnostics
-
-Bounded Context: Diagnostics Context
-
-Primary entities:
-
-* Lab Test
-* Test Request
-* Lab Result
-* Laboratory
-
-Purpose: To manage laboratory tests and provide patients and doctors with test results.
-
+    class Patient,Doctor,Appointment,MedicalRecord patientCareStyle
+    class Bill,Payment,InsuranceClaim,InsuranceProvider billingStyle
+    class LabTest,TestRequest,LabResult,Laboratory diagnosticsStyle
+    class PatientCareContext,BillingInsuranceContext,DiagnosticsContext contextStyle
 ```
