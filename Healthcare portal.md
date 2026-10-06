@@ -1,5 +1,8 @@
 ```mermaid
+flowchart TD
+
 Practical Lab: Healthcare Portal Modernization
+
 
 1. Domain Context Mapping
 
