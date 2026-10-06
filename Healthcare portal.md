@@ -1,5 +1,6 @@
+## SYSTEM DIAGRAM
 ```mermaid
-flowchart TD
+graph TD
 
 Practical Lab: Healthcare Portal Modernization
 
@@ -71,4 +72,5 @@ Primary entities:
 * Laboratory
 
 Purpose: To manage laboratory tests and provide patients and doctors with test results.
+
 ```
